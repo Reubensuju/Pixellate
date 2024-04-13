@@ -42,8 +42,8 @@ def process_frame(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     if prevgray is not None:
         flow = cv2.calcOpticalFlowFarneback(prevgray, gray, None, 0.5, 3, 15, 3, 5, 1.2, 0)
-        # cv2.imshow('flow', draw_flow(gray, flow))
-        # cv2.imshow('flow HSV', draw_hsv(flow))
+        cv2.imshow('flow', draw_flow(gray, flow))
+        cv2.imshow('flow HSV', draw_hsv(flow))
     prevgray = gray  # Update prevgray for the next frame
 
 def process_video(video_path):
