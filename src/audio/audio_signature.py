@@ -30,6 +30,8 @@ def find_best_match(input_features, query_features):
 
 # Function to convert seconds into hh:mm:ss.sss format
 def seconds_to_timestamp(seconds):
+    if(seconds == 0.0):
+        return "00:00:00.000"
     td = timedelta(seconds=seconds)
     str_time = str(td)
     hours, minutes, seconds = str_time.split(':')
@@ -54,7 +56,7 @@ def timecode_to_frames(timecode, fps):
     return frame_number
 
 original_video_path = 'dataset/originals/joker.mp4'
-query_video_path = 'dataset/queries/joker_query.mp4'
+query_video_path = 'dataset/queries/joker_query5.mp4'
 extract_audio(original_video_path, 'output_original_audio.wav')
 extract_audio(query_video_path, 'output_query_audio.wav')
 
@@ -82,5 +84,3 @@ print(f"Start Time: {start_time} seconds")
 print(f"End Time: {end_time} seconds")
 print(f"Start Frame: {start_frame}")
 print(f"End Frame: {end_frame}")
-
-
