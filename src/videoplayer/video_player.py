@@ -1,6 +1,7 @@
 import sys
 import vlc
 from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtCore import *
 
 class VideoPlayer(QtWidgets.QMainWindow):
     def __init__(self, master, video_path):
@@ -17,7 +18,12 @@ class VideoPlayer(QtWidgets.QMainWindow):
 
         # Create a QVBoxLayout for the QWidget layout
         self.layout = QtWidgets.QVBoxLayout()
+        self.layout_button = QtWidgets.QHBoxLayout()
+
+       
+
         self.central_widget.setLayout(self.layout)
+       
 
         # Create a frame and assign the VLC player to this frame
         self.frame = QtWidgets.QFrame()
@@ -25,18 +31,27 @@ class VideoPlayer(QtWidgets.QMainWindow):
         if sys.platform == "win32":
             self.player.set_hwnd(self.frame.winId())
 
+        btn_size = QSize(150, 50)
         # Add Play/Pause, Stop, and Skip buttons
         self.play_button = QtWidgets.QPushButton("Play/Pause")
         self.play_button.clicked.connect(self.toggle_play_pause)
-        self.layout.addWidget(self.play_button)
+        self.play_button.setStyleSheet("background-color: green; font-size: 20px;")
+        self.play_button.setFixedSize(btn_size)
+        self.layout_button.addWidget(self.play_button)
         
         self.stop_button = QtWidgets.QPushButton("Stop")
         self.stop_button.clicked.connect(self.stop_player)
-        self.layout.addWidget(self.stop_button)
+        self.stop_button.setStyleSheet("background-color: red; font-size: 20px")
+        self.stop_button.setFixedSize(btn_size)
+        self.layout_button.addWidget(self.stop_button)
         
         self.skip_button = QtWidgets.QPushButton("Skip")
         self.skip_button.clicked.connect(self.skip_to)
-        self.layout.addWidget(self.skip_button)
+        self.skip_button.setStyleSheet("background-color: yellow; font-size: 20px")
+        self.skip_button.setFixedSize(btn_size)
+        self.layout_button.addWidget(self.skip_button)
+
+        self.layout.addLayout(self.layout_button)
 
         # Load the video file
         self.media = self.instance.media_new(video_path)
